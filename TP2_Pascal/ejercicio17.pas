@@ -1,5 +1,7 @@
+{
+Desarrollar un procedimiento que devuelva en un vector los números primos entre 2 y 200.
+}
 program ejercicio17;
-{ Desarrollar un procedimiento que devuelva en un vector los numeros primos entre 2 y 200 }
 const max = 200;
 var arrPrimos: array [1 .. max] of integer;
 
