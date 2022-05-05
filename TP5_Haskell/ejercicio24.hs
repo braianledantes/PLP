@@ -5,7 +5,6 @@
 -- 333
 -- 22
 
-
 linea :: Int -> Int -> String
 linea n 0 = ""
 linea n 1 = show n
