@@ -65,10 +65,6 @@ casado(cecilia,javier).
 ancestro(X,Y,R) :- progenitor(X,Y,R).
 ancestro(X,Y,R) :- ancestro(X,Z,R), progenitor(Y,Z).
 
-
-ancestro(X,Y) :- progenitor(X,Y).
-ancestro(X,Y) :- ancestro(X,Z), progenitor(Y,Z).
-
 padre(X,Y) :- progenitor(X,Y), masculino(X).
 madre(X,Y) :- progenitor(X,Y), femenino(X).
 
@@ -81,7 +77,16 @@ tio(T,H) :- progenitor(P,H), hermano(P,T), masculino(T).
 
 primo(X,Y) :- progenitor(P,X), progenitor(T,Y), tio(P,T).
 
-% ancestro(X,Y) :- progenitor(X,Y).
-% ancestro(X,Y) :- ancestro(X,Z), progenitor(Z,Y).
+ancestro(Anc,Des) :- progenitor(Anc,Des).
+ancestro(Anc,Des) :- ancestro(Anc,DesInter), progenitor(DesInter,Des).
 
 succ(X, Y) :- Y is X + 1.
+
+estanCasados(X,Y) :- casado(X,Y).
+estanCasados(X,Y) :- casado(Y,X).
+
+soltero(Persona) :- not(estanCasados(Persona, _)).
+
+amante(X,Y) :- progenitor(X,Hijo), progenitor(Y,Hijo), not(estanCasados(X,Y)).
+
+suegra(Suegra, Persona) :- estanCasados(Persona, Pareja), madre(Suegra, Pareja).
