@@ -65,10 +65,10 @@ casado(cecilia,javier).
 ancestro(X,Y,R) :- progenitor(X,Y,R).
 ancestro(X,Y,R) :- ancestro(X,Z,R), progenitor(Y,Z).
 
-padre(X,Y) :- progenitor(X,Y), masculino(X).
+padre(X,Y) :- masculino(X), progenitor(X,Y).
 madre(X,Y) :- progenitor(X,Y), femenino(X).
 
-hermano(X,Y) :- progenitor(Z,X), progenitor(Z,Y).
+hermano(X,Y) :- progenitor(Z,X), progenitor(Z,Y), not(X==Y).
 
 abuelo(X,Y) :- progenitor(X,Z), progenitor(Z,Y).
 bisabuelo(X,Y) :- progenitor(X,Z), progenitor(Z,W), progenitor(W,Y).
