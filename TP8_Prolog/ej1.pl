@@ -51,6 +51,7 @@ masculino(carlos).
 masculino(gabriel).
 masculino(javier).
 masculino(jorge).
+masculino(pedro).
 
 %Casados
 casado(juan, maria).
@@ -61,14 +62,10 @@ casado(daniel, andrea).
 casado(norma,carlos).
 casado(cecilia,javier).
 
-
-ancestro(X,Y,R) :- progenitor(X,Y,R).
-ancestro(X,Y,R) :- ancestro(X,Z,R), progenitor(Y,Z).
-
 padre(X,Y) :- masculino(X), progenitor(X,Y).
 madre(X,Y) :- progenitor(X,Y), femenino(X).
 
-hermano(X,Y) :- progenitor(Z,X), progenitor(Z,Y), not(X==Y).
+hermano(X,Y) :- not(X==Y), progenitor(P,X), progenitor(M,X), progenitor(P,Y), progenitor(M,Y), masculino(P), femenino(M).
 
 abuelo(X,Y) :- progenitor(X,Z), progenitor(Z,Y).
 bisabuelo(X,Y) :- progenitor(X,Z), progenitor(Z,W), progenitor(W,Y).
@@ -78,9 +75,7 @@ tio(T,H) :- progenitor(P,H), hermano(P,T), masculino(T).
 primo(X,Y) :- progenitor(P,X), progenitor(T,Y), tio(P,T).
 
 ancestro(Anc,Des) :- progenitor(Anc,Des).
-ancestro(Anc,Des) :- ancestro(Anc,DesInter), progenitor(DesInter,Des).
-
-succ(X, Y) :- Y is X + 1.
+ancestro(Anc,Des) :- not(Anc == Des), progenitor(DesInter,Des), ancestro(Anc,DesInter).
 
 estanCasados(X,Y) :- casado(X,Y).
 estanCasados(X,Y) :- casado(Y,X).
