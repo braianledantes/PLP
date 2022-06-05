@@ -74,11 +74,11 @@ tio(T,H) :- progenitor(P,H), hermano(P,T), masculino(T).
 
 primo(X,Y) :- progenitor(P,X), progenitor(T,Y), tio(P,T).
 
-ancestro(Anc,Des) :- progenitor(Anc,Des).
-ancestro(Anc,Des) :- not(Anc == Des), progenitor(DesInter,Des), ancestro(Anc,DesInter).
+ancestro(Anc,Des) :- 
+    progenitor(Anc,Des); 
+    not(Anc == Des), progenitor(DesInter,Des), ancestro(Anc,DesInter).
 
-estanCasados(X,Y) :- casado(X,Y).
-estanCasados(X,Y) :- casado(Y,X).
+estanCasados(X,Y) :- casado(X,Y); casado(Y,X).
 
 soltero(Persona) :- not(estanCasados(Persona, _)).
 
