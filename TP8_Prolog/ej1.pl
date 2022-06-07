@@ -68,11 +68,15 @@ madre(X,Y) :- progenitor(X,Y), femenino(X).
 hermano(X,Y) :- not(X==Y), progenitor(P,X), progenitor(M,X), progenitor(P,Y), progenitor(M,Y), masculino(P), femenino(M).
 
 abuelo(X,Y) :- progenitor(X,Z), progenitor(Z,Y).
-bisabuelo(X,Y) :- progenitor(X,Z), progenitor(Z,W), progenitor(W,Y).
+%bisabuelo(X,Y) :- progenitor(X,Z), progenitor(Z,W), progenitor(W,Y).
+bisabuelo(X,Y) :- progenitor(X,A), abuelo(A,Y).
 
-tio(T,H) :- progenitor(P,H), hermano(P,T), masculino(T).
+tio(T,H) :- progenitor(P,H), hermano(P,T).
+tio(T,H) :- progenitor(P,H), hermano(P,T1), casado(T1, T).
 
 primo(X,Y) :- progenitor(P,X), progenitor(T,Y), tio(P,T).
+
+primo(X,Y) :- progenitor(P,X), hermano(T,P), padre(T,Y).
 
 ancestro(Anc,Des) :- 
     progenitor(Anc,Des); 
