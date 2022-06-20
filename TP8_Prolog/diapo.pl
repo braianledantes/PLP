@@ -27,3 +27,9 @@ menmer(X, [H|T]) :- X /== H, menmer(X, T).
 
 member(X,[X|_]). 
 member(X,[_|T]):- member(X,T).
+
+concatenar([], L, L).
+concatenar([H|T1], L, [H|T2]) :- concatenar(T1, L, T2).
+
+miembro(M, [M|_]).
+miembro(M, [_|T]) :- miembro(M, T).
