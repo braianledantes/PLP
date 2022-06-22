@@ -23,3 +23,14 @@ cardinalidad([H|T], R) :- not(pertenece(H, T)), cardinalidad(T, R1), R is R1 + 1
 inversion(L, R) :- inversionAux(L, [], R).
 inversionAux([], B, B).
 inversionAux([A|B], C, R) :- inversionAux(B, [A|C], R).
+
+%verifica si la lista es prefijo de la otra.
+prefijo([], _).
+prefijo([H|T1], [H|T2]) :- prefijo(T1, T2).
+
+sufijo(S, A) :- inversion(A, A1), inversion(S, S1), prefijo(S1, A1).
+
+palindromo(A, R) :- inversion(A, B), concatenar(A, B, R).
+
+duplicar([], []).
+duplicar([H|T], [H,H|R]) :- duplicar(T, R).
